@@ -1,16 +1,28 @@
+"""
+lib for owencloud API v1
+use for free
+"""
+
 import requests
 import json
 
+
+"""
+Sign UP & Sign IN
+"""
+#authentication
 def auth(login, password):
-    # параметры авторизации
     data = json.dumps({'login': login, 'password': password})
-    # запрос на авторизацию
     req = requests.post("https://api.owencloud.ru/v1/auth/open/", data=data)
     answer = json.loads(req.text)
     token = "Bearer " + answer["token"]
     return token
 
 
+"""
+Devices information
+"""
+#device list
 def device_index(bearer):
     headers = {'Authorization': bearer}
     data = json.dumps({'filter': ''})
@@ -18,7 +30,7 @@ def device_index(bearer):
     devices = json.loads(req.text)
     return devices
 
-
+#device information
 def device_params(bearer, device_id):
     headers = {'Authorization': bearer}
     data = json.dumps({'filter': ''})
